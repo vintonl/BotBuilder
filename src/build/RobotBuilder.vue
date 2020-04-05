@@ -2,33 +2,33 @@
   <div>
     <div class="top-row">
       <div class="top part">
-        <img v-bind:src="availableParts.heads[0].src" title="head" />
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img v-bind:src="availableParts.heads[selectNextHeadIndex].src" title="head" />
+        <button v-on:click="selectPreviousHead()" class="prev-selector">&#9668;</button>
+        <button v-on:click="selectNextHead()" class="next-selector">&#9658;</button>
       </div>
     </div>
     <div class="middle-row">
       <div class="left part">
-        <img v-bind:src="availableParts.arms[0].src" title="left arm" />
-        <button class="prev-selector">&#9650;</button>
-        <button class="next-selector">&#9660;</button>
+        <img v-bind:src="availableParts.arms[selectNextLeftArmIndex].src" title="left arm" />
+        <button v-on:click="selectPreviousLeftArm()" class="prev-selector">&#9650;</button>
+        <button v-on:click="selectNextLeftArm()" class="next-selector">&#9660;</button>
       </div>
       <div class="center part">
-        <img v-bind:src="availableParts.torsos[0].src" title="torsos" />
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img v-bind:src="availableParts.torsos[selectNextTorsoIndex].src" title="torsos" />
+        <button v-on:click="selectPreviousTorso()" class="prev-selector">&#9650;</button>
+        <button v-on:click="selectNextTorso()" class="next-selector">&#9660;</button>
       </div>
       <div class="right part">
-        <img v-bind:src="availableParts.arms[0].src" title="left arm" />
-        <button class="prev-selector">&#9650;</button>
-        <button class="next-selector">&#9660;</button>
+        <img v-bind:src="availableParts.arms[selectNextRightArmIndex].src" title="right arm" />
+        <button v-on:click="selectPreviousRightArm()" class="prev-selector">&#9650;</button>
+        <button v-on:click="selectNextRightArm()" class="next-selector">&#9660;</button>
       </div>
     </div>
     <div class="bottom-row">
       <div class="bottom part">
-        <img v-bind:src="availableParts.bases[0].src" title="base" />
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img v-bind:src="availableParts.bases[selectNextBaseIndex].src" title="base" />
+         <button v-on:click="selectPreviousBase()" class="prev-selector">&#9650;</button>
+        <button v-on:click="selectNextBase()" class="next-selector">&#9660;</button>
       </div>
     </div>
   </div>
@@ -37,12 +37,89 @@
 <script>
 import availableParts from '../data/parts';
 
+function getPreviousValidIndex(index, length) {
+  const depectatedIndex = index - 1;
+  return depectatedIndex < 0 ? length - 1 : depectatedIndex;
+}
+
+function getNextValidIndex(index, length) {
+  const incrementedIndex = index + 1;
+  return incrementedIndex > length - 1 ? 0 : incrementedIndex;
+}
+
 export default {
   name: 'RobotBuiler',
   data() {
     return {
       availableParts,
+      selectNextHeadIndex: 0,
+      selectNextLeftArmIndex: 0,
+      selectNextRightArmIndex: 0,
+      selectNextTorsoIndex: 0,
+      selectNextBaseIndex: 0,
     };
+  },
+  methods: {
+    selectNextHead() {
+      this.selectNextHeadIndex = getNextValidIndex(
+        this.selectNextHeadIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectPreviousHead() {
+      this.selectNextHeadIndex = getPreviousValidIndex(
+        this.selectNextHeadIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectNextLeftArm() {
+      this.selectNextLeftArmIndex = getNextValidIndex(
+        this.selectNextLeftArmIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectPreviousLeftArm() {
+      this.selectNextLeftArmIndex = getPreviousValidIndex(
+        this.selectNextLeftArmIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectNextRightArm() {
+      this.selectNextRightArmIndex = getNextValidIndex(
+        this.selectNextRightArmIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectPreviousRightArm() {
+      this.selectNextRightArmIndex = getPreviousValidIndex(
+        this.selectNextRightArmIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectNextTorso() {
+      this.selectNextTorsoIndex = getNextValidIndex(
+        this.selectNextTorsoIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectPreviousTorso() {
+      this.selectNextTorsoIndex = getPreviousValidIndex(
+        this.selectNextTorsoIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectNextBase() {
+      this.selectNextBaseIndex = getNextValidIndex(
+        this.selectNextBaseIndex,
+        availableParts.heads.length,
+      );
+    },
+    selectPreviousBase() {
+      this.selectNextBaseIndex = getPreviousValidIndex(
+        this.selectNextBaseIndex,
+        availableParts.heads.length,
+      );
+    },
   },
 };
 </script>
@@ -50,23 +127,23 @@ export default {
 <style scoped>
 .part {
   position: relative;
-  width:165px;
-  height:165px;
+  width: 165px;
+  height: 165px;
   border: 3px solid #aaa;
 }
 .part img {
-  width:165px;
+  width: 165px;
 }
 .top-row {
-  display:flex;
+  display: flex;
   justify-content: space-around;
 }
 .middle-row {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 .bottom-row {
-  display:flex;
+  display: flex;
   justify-content: space-around;
   border-top: none;
 }
@@ -90,7 +167,7 @@ export default {
 }
 .prev-selector {
   position: absolute;
-  z-index:1;
+  z-index: 1;
   top: -3px;
   left: -28px;
   width: 25px;
@@ -98,14 +175,15 @@ export default {
 }
 .next-selector {
   position: absolute;
-  z-index:1;
+  z-index: 1;
   top: -3px;
   right: -28px;
   width: 25px;
   height: 171px;
 }
-.center .prev-selector, .center .next-selector {
-  opacity:0.8;
+.center .prev-selector,
+.center .next-selector {
+  opacity: 0.8;
 }
 .left .prev-selector {
   top: -28px;
