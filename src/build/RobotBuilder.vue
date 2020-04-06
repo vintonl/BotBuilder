@@ -4,7 +4,7 @@
       <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
     </div>
     <div class="top-row">
-      <div class="top part">
+      <div class="top part" :style="headBorderStyle">
         <div class="robot-name">
           {{ selectedRobot.head.title }}
           <span class="sale" v-if="selectedRobot.head.onSale">Sale!</span>
@@ -38,23 +38,23 @@
         <button @click="selectNextBase()" class="next-selector">&#9660;</button>
       </div>
     </div>
-  <div>
-    <h1>Cart</h1>
-    <Table>
-      <thead>
-        <tr>
-          <th>Robot</th>
-          <th class="cost">Cost</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(robot, index) in cart" :key="index">
-          <td>{{robot.head.title}}</td>
-          <td class="cost">{{robot.cost}}</td>
-        </tr>
-      </tbody>
-    </Table>
-  </div>
+    <div>
+      <h1>Cart</h1>
+      <Table>
+        <thead>
+          <tr>
+            <th>Robot</th>
+            <th class="cost">Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(robot, index) in cart" :key="index">
+            <td>{{robot.head.title}}</td>
+            <td class="cost">{{robot.cost}}</td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   </div>
 </template>
 
@@ -85,6 +85,9 @@ export default {
     };
   },
   computed: {
+    headBorderStyle() {
+      return { border: this.selectedRobot.head.onSale ? '3px solid red' : '3px solid #aaa' };
+    },
     selectedRobot() {
       return {
         head: availableParts.heads[this.selectedHeadIndex],
@@ -169,7 +172,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .part {
   position: relative;
   width: 165px;
@@ -278,12 +281,16 @@ export default {
   padding: 3px;
   font-size: 16px;
 }
-td, th {
+td,
+th {
   text-align: left;
   padding: 5px;
   padding-right: 20px;
 }
 .cost {
   text-align: right;
+}
+.sale-border {
+
 }
 </style>
