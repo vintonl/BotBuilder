@@ -60,6 +60,7 @@
 
 <script>
 import availableParts from '../data/parts';
+import createdHookMixin from './created-hook-mixin';
 
 function getPreviousValidIndex(index, length) {
   const depectatedIndex = index - 1;
@@ -73,6 +74,7 @@ function getNextValidIndex(index, length) {
 
 export default {
   name: 'RobotBuiler',
+
   data() {
     return {
       availableParts,
@@ -84,6 +86,7 @@ export default {
       selectedBaseIndex: 0,
     };
   },
+  mixins: [createdHookMixin],
   computed: {
     headBorderStyle() {
       return { border: this.selectedRobot.head.onSale ? '3px solid red' : '3px solid #aaa' };
