@@ -9,16 +9,36 @@
           {{ selectedRobot.head.title }}
           <span class="sale" v-if="selectedRobot.head.onSale">Sale!</span>
         </div>
-        <PartSelector/>
+        <PartSelector
+          :parts="availableParts.heads"
+          position="top"
+          @partSelected="part => selectedRobot.head = part"
+        />
       </div>
     </div>
     <div class="middle-row">
-     <PartSelector/>
-     <PartSelector/>
-     <PartSelector/>
+      <PartSelector
+        :parts="availableParts.arms"
+        position="left"
+        @partSelected="part => selectedRobot.leftArm = part"
+      />
+      <PartSelector
+        :parts="availableParts.torsos"
+        position="center"
+        @partSelected="part => selectedRobot.torso = part"
+      />
+      <PartSelector
+        :parts="availableParts.arms"
+        position="right"
+        @partSelected="part => selectedRobot.rightArm = part"
+      />
     </div>
     <div class="bottom-row">
-      <PartSelector/>
+      <PartSelector
+        :parts="availableParts.bases"
+        position="bottom"
+        @partSelected="part => selectedRobot.base = part"
+      />
     </div>
     <div>
       <h1>Cart</h1>
@@ -53,18 +73,22 @@ export default {
       availableParts,
       cart: [],
       selectedRobot: {
-        head: {},
-        leftArm: {},
-        torso: {},
-        rightArm: {},
-        base: {},
+        head: { },
+        leftArm: { },
+        torso: { },
+        rightArm: { },
+        base: { },
       },
     };
   },
   mixins: [createdHookMixin],
   computed: {
     headBorderStyle() {
-      return { border: this.selectedRobot.head.onSale ? '3px solid red' : '3px solid #aaa' };
+      return {
+        border: this.selectedRobot.head.onSale
+          ? '3px solid red'
+          : '3px solid #aaa',
+      };
     },
   },
   methods: {
@@ -200,6 +224,5 @@ th {
   text-align: right;
 }
 .sale-border {
-
 }
 </style>
