@@ -1,7 +1,7 @@
 # build-a-bot
 
 ## Overview:
-This project is in development.
+- This project is in development.
 
 This program is designed to be a front-end Vue.js software application.
 
