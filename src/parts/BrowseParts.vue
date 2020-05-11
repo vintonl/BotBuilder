@@ -2,11 +2,20 @@
   <div>
     <h1>Browse Parts</h1>
     <ul class="menu">
-      <li>Heads</li>
-      <li>Arms</li>
-      <li>Torsos</li>
-      <li>Bases</li>
+      <li>
+        <router-link :to="{name: 'BrowseHeads'}">Heads</router-link>
+      </li>
+      <li>
+        <router-link :to="{name: 'BrowseArms'}">Arms</router-link>
+        </li>
+      <li>
+        <router-link :to="{name: 'BrowseTorsos'}">Torsos</router-link>
+      </li>
+      <li>
+        <router-link :to="{name: 'BrowseBases'}">Bases</router-link>
+      </li>
     </ul>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -17,19 +26,19 @@ export default {
 </script>
 
 <style scoped>
-  h1 {
-    text-align: center;
-  }
-  .menu {
-    display: flex;
-    justify-content: space-around;
-    margin: 0 100px;
-    font-size: 20px;
-  }
-  ul {
-    list-style-type: none;
-  }
-  a {
-    color: palevioletred;
-  }
+h1 {
+  text-align: center;
+}
+.menu {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 100px;
+  font-size: 20px;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  color: palevioletred;
+}
 </style>
